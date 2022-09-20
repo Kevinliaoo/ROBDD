@@ -41,15 +41,33 @@ void processOutput(vector<int> table, string filename)
 
     content += "digraph ROBDD {\n";
 
+    int last_var = -1;
+    string tt = "\t{rank=same ";
     for (int i = 1; i < num_rows - 1; i++)
     {
         int index = table[i * table_length];
-        string t = "\t{rank=same ";
-        t += to_string(index);
-        t += "}\n";
+        int var = table[i * table_length + var_branch];
 
-        content += t;
+        if (var == last_var)
+        {
+            tt += " ";
+            tt += to_string(index);
+        }
+        else
+        {
+            last_var = var;
+            tt += "}\n";
+
+            if (tt.size() > 14)
+                content += tt;
+
+            tt = "\t{rank=same ";
+            tt += to_string(index);
+        }
     }
+
+    tt += "}\n";
+    content += tt;
     content += '\n';
 
     for (int i = 0; i < num_rows; i++)
