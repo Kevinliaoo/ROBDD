@@ -78,9 +78,9 @@ void processOutput(vector<int> table, string filename)
         if (i == 0 || i == num_rows - 1)
         {
             temp += to_string(index);
-            temp += "[label=";
-            temp += to_string(index);
-            temp += ",shape=box]\n";
+            temp += "[label=\"";
+            temp += i == 0 ? '0' : '1';
+            temp += "\",shape=box]\n";
         }
         else
         {
